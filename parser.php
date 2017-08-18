@@ -62,7 +62,6 @@ function getCountChars($aPage)
     $lString = html_entity_decode($lString);// decode special chars
 
     $lCountChars = getLengthString($lString);
-
     return $lCountChars;
 }
 
@@ -72,17 +71,18 @@ if (isset($_POST['url']) and !empty($_POST['url'])
     $lUrl = trim($_POST['url']);
     $lUrl = strip_tags($lUrl);
 
-    $regex = '/https?\:\/\/[^\" ]+/i';
-    preg_match_all($regex, $lUrl, $lUrlArray);
+    $lUrlArray = explode("\n", $lUrl);
 
-    if (count($lUrlArray[0]) > 0) {
+    if (count($lUrlArray) > 0) {
         $lData = [];
         $lCurrentTime = time();
-        foreach ($lUrlArray[0] as $url) {
+        foreach ($lUrlArray as $url) {
             $url = trim($url);
             $url = strip_tags($url);
-            $lPage = getPage($url);
+            if (empty($url))
+                continue;
 
+            $lPage = getPage($url);
             if (isBlockInPage($lPage)) {
                 $lCnt = getCountChars($lPage);
                 $lData[] = [
@@ -93,7 +93,7 @@ if (isset($_POST['url']) and !empty($_POST['url'])
             }
         }
         if (count($lData) > 0) {
-            require_once('model_parser.php'); // connect to BD
+            require_once('db_connect.php'); // connect to BD
             $i = 0;
             $errors = [];
             foreach ($lData as $value) {
@@ -101,7 +101,10 @@ if (isset($_POST['url']) and !empty($_POST['url'])
                     "'".mysql_real_escape_string($value['link'])."',".
                     "'".mysql_real_escape_string($value['cnt'])."',".
                     "'".mysql_real_escape_string($value['created_at'])."'".
-                    ")";
+                    ")  ON DUPLICATE KEY UPDATE ".
+                    "link ='".mysql_real_escape_string($value['link'])."', ".
+                    "cnt ='".mysql_real_escape_string($value['cnt'])."', ".
+                    "created_at ='".mysql_real_escape_string($value['created_at'])."'";
 
                 begin(); // transaction begins
                 $result = mysql_query($query);

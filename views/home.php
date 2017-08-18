@@ -12,7 +12,7 @@
 <div class="content">
     <form class="form-horizontal" action="" method="post">
         <div class="form-group">
-            <label class="control-label col-sm-10" for="url">Insert link by whitespace separating:</label>
+            <label class="control-label col-sm-10" for="url">Insert the link, dividing the entr</label>
             <div class="col-sm-10">
                 <textarea name="url" class="form-control form_to_send" id="url"
                           rows="30"

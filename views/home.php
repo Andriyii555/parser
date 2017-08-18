@@ -12,14 +12,14 @@
 <div class="content">
     <form class="form-horizontal" action="" method="post">
         <div class="form-group">
-            <label class="control-label col-sm-2" for="url">Url:</label>
+            <label class="control-label col-sm-2" for="url">Insert link by whitespace separating:</label>
             <div class="col-sm-10">
                 <input type="text" name="url" value="<?php
                 echo (isset($_POST['url']) and !empty($_POST['url']))
                     ? $_POST['url']
                     : "";
                 ?>" class="form-control form_to_send" id="url"
-                       placeholder="https://euro-technika.com.ua/shop/category/tehnika-dlia-kuhni">
+                       placeholder="https://test https://example">
             </div>
         </div>
         <div class="form-group">

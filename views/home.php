@@ -8,18 +8,19 @@
     <script src='https://www.google.com/recaptcha/api.js'></script>
 </head>
 <body>
-<br><br><br>
+<br>
 <div class="content">
     <form class="form-horizontal" action="" method="post">
         <div class="form-group">
-            <label class="control-label col-sm-2" for="url">Insert link by whitespace separating:</label>
+            <label class="control-label col-sm-10" for="url">Insert link by whitespace separating:</label>
             <div class="col-sm-10">
-                <input type="text" name="url" value="<?php
-                echo (isset($_POST['url']) and !empty($_POST['url']))
-                    ? $_POST['url']
-                    : "";
-                ?>" class="form-control form_to_send" id="url"
-                       placeholder="https://test https://example">
+                <textarea name="url" class="form-control form_to_send" id="url"
+                          rows="30"
+                          placeholder="https://example"><?php
+                    echo (isset($_POST['url']) and !empty($_POST['url']))
+                        ? $_POST['url']
+                        : "";
+                ?></textarea>
             </div>
         </div>
         <div class="form-group">

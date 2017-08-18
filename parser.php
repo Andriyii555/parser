@@ -115,17 +115,20 @@ if (isset($_POST['url']) and !empty($_POST['url'])
                     commit(); // transaction is committed
                 }
             }
-        }
-        echo "<div class=\"alert alert-success\">".
-            "<h1>Operattion Success!</h1></div>";
 
-        if (count($errors) > 0) {
-            echo "<div class=\"alert alert-warning\">".
-                "<h1>There are error in stage ".implode(', ', $errors)."</h1></div>";
-        }
+            echo "<div class=\"alert alert-success\">".
+                "<h1>Operattion Success!</h1></div>";
 
+            if (count($errors) > 0) {
+                echo "<div class=\"alert alert-warning\">".
+                    "<h1>There are errors in stage ".implode(', ', $errors)."</h1></div>";
+            }
+        } else {
+            echo "<div class=\"alert alert-danger\">".
+                "<h1>Enter new links!</h1> <p>There arent any data in that links :(</p></div>";
+        }
     } else {
         echo "<div class=\"alert alert-danger\">".
-            "<h1>enter link!</h1></div>";
+            "<h1>Enter links!</h1></div>";
     }
 }
